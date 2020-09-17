@@ -1,0 +1,127 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #03A9F4;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    /* Footer height */
+    padding-bottom: 60px;
+    padding-top: 20px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    /* Footer height */
+    line-height: 60px;
+    background-color: rgba(0, 0, 0, 95%);
+}
+
+#footer-content {
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#heart-emoji {
+    color: red;
+}
+
+#github-link {
+    color: gray;
+    text-decoration: none;
+}
+
+#github-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+#app {
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 3px;
+    padding: 5px;
+    width: 800px;
+    min-width: 800px;
+    min-height: 400px;
+    margin: 0 auto;
+}
+
+.card {
+    /*border: 1px solid grey;*/
+    position: relative;
+    width: 125px;
+    height: 180px;
+    transform-style: preserve-3d;
+    transition: all 2s ease;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/*.card:hover,*/
+.flip {
+    transform: rotateY(180deg);
+}
+
+.front,
+.back {
+    border: 1px solid grey;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+}
+
+.front {
+    background: grey;
+    /* select*/
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+     user-select: none;
+}
+
+.back {
+    background: white;
+    transform: rotateY(180deg);
+    padding: 10px 15px;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+/* grid */
+#grid{
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap
+}
+
+.self-align-center{
+    align-self: center;
+}
