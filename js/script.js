@@ -1,5 +1,6 @@
 "use strict";
 var IMAGE_ROOT = "img/";
+var DELAY = 800;
 function shuffle(array) {
     var _a;
     for (var i = array.length - 1; i > 0; i--) {
@@ -11,7 +12,10 @@ function shuffle(array) {
 var Game = /** @class */ (function () {
     function Game(cards, images) {
         var _this = this;
-        this.count = 0;
+        this.turn = 1;
+        this.card1 = null;
+        this.card2 = null;
+        this.blockFlip = false;
         this.cards = cards;
         this.images = images;
         var _loop_1 = function (i) {
@@ -25,6 +29,49 @@ var Game = /** @class */ (function () {
         }
     }
     Game.prototype.onClickCard = function (position) {
+        if (this.blockFlip) {
+            console.log("Block flip");
+            return;
+        }
+        if (this.cards[position].classList.contains("block")) {
+            console.log("Carta já retirada");
+            return;
+        }
+        // flip card
+        this.cards[position].classList.add("flip");
+        var self = this;
+        // wait card flip
+        setTimeout(function () {
+            var _a, _b, _c, _d, _e, _f;
+            if (self.turn == 1) {
+                self.card1 = self.cards[position];
+                self.turn = 2;
+            }
+            else {
+                if (self.cards[position] == self.card1) {
+                    console.log("> Card já selecionado");
+                    return;
+                }
+                self.card2 = self.cards[position];
+                self.turn = 1;
+                var img1 = (_a = self.card1) === null || _a === void 0 ? void 0 : _a.getElementsByTagName("img")[0].src;
+                var img2 = (_b = self.card2) === null || _b === void 0 ? void 0 : _b.getElementsByTagName("img")[0].src;
+                console.log(">> ", img1, ", ", img2);
+                if (img1 == img2) {
+                    console.log("> imagens iguais");
+                    (_c = self.card1) === null || _c === void 0 ? void 0 : _c.classList.add("block");
+                    (_d = self.card2) === null || _d === void 0 ? void 0 : _d.classList.add("block");
+                }
+                else {
+                    console.log("> imagens diferente");
+                    (_e = self.card1) === null || _e === void 0 ? void 0 : _e.classList.remove("flip");
+                    (_f = self.card2) === null || _f === void 0 ? void 0 : _f.classList.remove("flip");
+                }
+                if (self.isEndGame()) {
+                    alert("Fim do jogo");
+                }
+            }
+        }, DELAY);
     };
     Game.prototype.showCards = function () {
         for (var i = 0; i < this.cards.length; i++) {
@@ -35,6 +82,29 @@ var Game = /** @class */ (function () {
         for (var i = 0; i < this.cards.length; i++) {
             this.cards[i].classList.remove("flip");
         }
+    };
+    Game.prototype.shuffle = function () {
+        var _this = this;
+        this.showCards();
+        setTimeout(function () {
+            _this.hideCards();
+            setTimeout(function () {
+                _this.images = shuffle(_this.images);
+                for (var i = 0; i < _this.cards.length; i++) {
+                    _this.cards[i].classList.remove("block");
+                    _this.cards[i].getElementsByTagName("img")[0].src = _this.images[i];
+                }
+                //this.showCards();// for test
+            }, DELAY + 100);
+        }, DELAY + 100);
+    };
+    Game.prototype.isEndGame = function () {
+        for (var i = 0; i < this.cards.length; i++) {
+            if (!this.cards[i].classList.contains("block")) {
+                return false;
+            }
+        }
+        return true;
     };
     return Game;
 }());
@@ -64,7 +134,7 @@ var img = [
     IMAGE_ROOT + "c++.png",
     IMAGE_ROOT + "c++.png",
 ];
-img = shuffle(img);
+//img = shuffle(img);
 var grid = document.getElementById("grid");
 img.forEach(function (e) {
     var card = buildCard(e);

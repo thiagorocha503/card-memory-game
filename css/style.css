@@ -71,7 +71,7 @@ body {
     width: 125px;
     height: 180px;
     transform-style: preserve-3d;
-    transition: all 2s ease;
+    transition: all 0.8s ease;
     margin-right: 5px;
     margin-bottom: 5px;
     border-radius: 10px;
@@ -124,4 +124,7 @@ img{
 
 .self-align-center{
     align-self: center;
+}
+.block{
+    cursor: default;
 }

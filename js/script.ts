@@ -1,4 +1,5 @@
 const IMAGE_ROOT = "img/";
+const DELAY: number = 800;
 
 function shuffle(array: Array<any>) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -11,7 +12,10 @@ function shuffle(array: Array<any>) {
 class Game {
     private cards: HTMLCollectionOf<HTMLDivElement>;
     private images: Array<string>;
-    private count: number = 0;
+    private turn: number = 1;
+    private card1: HTMLDivElement| null = null;
+    private card2: HTMLDivElement| null = null;
+    private blockFlip: boolean = false;
 
     constructor(cards: HTMLCollectionOf<HTMLDivElement>, images: Array<string>) {
         this.cards = cards;
@@ -23,6 +27,49 @@ class Game {
         }
     }
     onClickCard(position: number){
+        if(this.blockFlip){
+            console.log("Block flip")
+            return;
+        }
+        if(this.cards[position].classList.contains("block")){
+            console.log("Carta já retirada");
+            return;
+        }
+        // flip card
+        this.cards[position].classList.add("flip");
+        let self: Game = this;
+        // wait card flip
+        setTimeout(function(){
+            if(self.turn == 1) {
+                self.card1 = self.cards[position];
+                self.turn = 2;
+            } else {
+                if(self.cards[position] == self.card1){
+                    console.log("> Card já selecionado")
+                    return;
+                }
+                self.card2 = self.cards[position];
+                self.turn = 1;
+                let img1 = self.card1?.getElementsByTagName("img")[0].src;
+                let img2 = self.card2?.getElementsByTagName("img")[0].src;
+                console.log(">> ",img1,", ",img2)
+                if(img1 == img2){
+                    console.log("> imagens iguais")
+                    self.card1?.classList.add("block");
+                    self.card2?.classList.add("block");
+                } else {
+                    console.log("> imagens diferente")
+                    self.card1?.classList.remove("flip");
+                    self.card2?.classList.remove("flip");
+                }
+
+                if(self.isEndGame()){
+                    alert("Fim do jogo");
+                }
+            }
+        }, DELAY);
+       
+        
 
     }
     showCards(): void {
@@ -36,6 +83,31 @@ class Game {
             this.cards[i].classList.remove("flip");
         }
     }
+
+    shuffle():void{
+        this.showCards();
+        setTimeout(()=>{
+            this.hideCards();     
+            setTimeout(()=>{
+                this.images = shuffle(this.images);
+                for (let i = 0; i < this.cards.length; i++) {
+                    this.cards[i].classList.remove("block");
+                    this.cards[i].getElementsByTagName("img")[0].src = this.images[i];
+                }
+                //this.showCards();// for test
+            },DELAY+100);
+        }, DELAY+100);
+    }
+
+    isEndGame(){
+        for (let i = 0; i < this.cards.length; i++) {
+            if(!this.cards[i].classList.contains("block")){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 
 function buildCard(img: string) {
@@ -77,8 +149,7 @@ let img: Array<string> = [
     IMAGE_ROOT + "c++.png",
     IMAGE_ROOT + "c++.png",
 ];
-
-img = shuffle(img);
+//img = shuffle(img);
 let grid: HTMLElement = document.getElementById("grid") as HTMLElement;
 img.forEach((e) => {
     let card = buildCard(e);
