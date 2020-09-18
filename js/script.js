@@ -1,88 +1,50 @@
 "use strict";
-const IMAGE_ROOT = "img/";
+var IMAGE_ROOT = "img/";
 function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+    var _a;
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        _a = [array[j], array[i]], array[i] = _a[0], array[j] = _a[1];
     }
     return array;
 }
-class Game {
-    constructor(cards, images) {
+var Game = /** @class */ (function () {
+    function Game(cards, images) {
+        var _this = this;
         this.count = 0;
         this.cards = cards;
         this.images = images;
-        for (let i = 0; i < this.cards.length; i++) {
-            this.cards[i].addEventListener("click", (evt) => {
-                this.onClickCard(i);
+        var _loop_1 = function (i) {
+            this_1.cards[i].addEventListener("click", function (evt) {
+                _this.onClickCard(i);
             });
-        }
-        //this.shuffle();
-    }
-    onClickCard(position) {
-        this.count++;
-        console.log("> " + position);
-        this.cards[position].classList.remove("flip");
-        if (this.count == 2) {
-            setTimeout(() => {
-                this.hideCard();
-                this.count = 0;
-            }, 2000);
+        };
+        var this_1 = this;
+        for (var i = 0; i < this.cards.length; i++) {
+            _loop_1(i);
         }
     }
-    new() {
-        this.images = shuffle(this.images);
-        this.showCard();
-        for (let i = 0; i < this.cards.length; i++) {
-            this.cards[i].
-                getElementsByTagName("img")[0]
-                .setAttribute("src", this.images[i]);
-        }
-        setTimeout(() => {
-            this.hideCard();
-        }, 2000);
-    }
-    shuffle() {
-        this.images = shuffle(this.images);
-        this.hideCard();
-        setTimeout(() => {
-            for (let i = 0; i < this.cards.length; i++) {
-                this.cards[i].
-                    getElementsByTagName("img")[0]
-                    .setAttribute("src", this.images[i]);
-            }
-            this.showCard();
-        }, 2000);
-    }
-    hideCard() {
-        for (let i = 0; i < this.cards.length; i++) {
-            this.cards[i].classList.remove("flip");
-        }
-    }
-    showCard() {
-        for (let i = 0; i < this.cards.length; i++) {
+    Game.prototype.onClickCard = function (position) {
+    };
+    Game.prototype.showCards = function () {
+        for (var i = 0; i < this.cards.length; i++) {
             this.cards[i].classList.add("flip");
         }
-    }
-}
+    };
+    Game.prototype.hideCards = function () {
+        for (var i = 0; i < this.cards.length; i++) {
+            this.cards[i].classList.remove("flip");
+        }
+    };
+    return Game;
+}());
 function buildCard(img) {
-    let card = document.createElement("div");
+    var card = document.createElement("div");
     card.className = "card";
-    card.insertAdjacentHTML("afterbegin", `
-    <div class="front">
-        <div class="self-align-center">
-                Front
-            </div>
-        </div>
-        <div class="back">
-            <div class="self-align-center">
-                <img src=${img}>
-            </div>         
-        </div>
-    `);
+    card.insertAdjacentHTML("afterbegin", "\n    <div class=\"front\">\n        <div class=\"self-align-center\">\n                Front\n            </div>\n        </div>\n        <div class=\"back\">\n            <div class=\"self-align-center\">\n                <img src=" + img + ">\n            </div>         \n        </div>\n    ");
     return card;
 }
-let img = [
+var img = [
     IMAGE_ROOT + "c-sharp.png",
     IMAGE_ROOT + "c-sharp.png",
     IMAGE_ROOT + "java.png",
@@ -103,10 +65,10 @@ let img = [
     IMAGE_ROOT + "c++.png",
 ];
 img = shuffle(img);
-let grid = document.getElementById("grid");
-img.forEach((e) => {
-    let card = buildCard(e);
+var grid = document.getElementById("grid");
+img.forEach(function (e) {
+    var card = buildCard(e);
     grid.appendChild(card);
 });
-let cards = document.getElementsByClassName("card");
-let game = new Game(cards, img);
+var cards = document.getElementsByClassName("card");
+var game = new Game(cards, img);
