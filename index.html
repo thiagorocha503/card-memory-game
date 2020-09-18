@@ -39,20 +39,6 @@
         </footer>
     </div>
     <script src="js/jquery.min.js"></script>
-    <script>
-        $(function() {
-            let cards = document.getElementsByClassName("card");
-            for(let i=0; i<cards.length;i++){
-                cards[i].addEventListener("click",()=>{
-                    if(cards[i].classList.contains("flip")){
-                        cards[i].classList.remove("flip");
-                    } else {
-                        cards[i].classList.add("flip");
-                    }
-                });
-            }
-        });
-    </script>
     <script src="js/script.js"></script>
 </body>
 
