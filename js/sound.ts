@@ -23,19 +23,21 @@ class Sound {
         if (!this.activeSoundEfects) {
             return;
         }
+        let selectedSound: HTMLAudioElement;
         switch (option) {
             case gameEfect.flip:
-                this.flipCardSound.play();
+                selectedSound = this.flipCardSound;
                 break;
             case gameEfect.success:
-                this.sucessSound.play();
+                selectedSound = this.sucessSound;
                 break;
             default:
                 return;
         }
-
+        selectedSound.currentTime = 0;
+        selectedSound.play();
     }
-    
+
 }
 
 
