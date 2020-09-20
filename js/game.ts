@@ -32,6 +32,10 @@ class Game {
     }
 
     onClickCard(position: number): void {
+        if(this.isEndGame()){
+            console.log("End game");
+            return;
+        }
         this.timer.start();
         if (this.blockFlip) {
             console.log("Block flip")
