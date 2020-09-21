@@ -46,6 +46,13 @@ window.addEventListener("load", function(){
     let flip: HTMLAudioElement = document.getElementById("flip") as HTMLAudioElement;
     let success: HTMLAudioElement = document.getElementById("success") as HTMLAudioElement;
     let sound = new Sound(flip, success);
+    // failuresCount
+    let failuresDisplay: HTMLSpanElement = document.getElementById("failures") as HTMLSpanElement;
     // Game
-    game = new Game(cards, img, timer, sound);
+    game = new Game(cards, img, timer, sound, failuresDisplay);
+    // button
+    let btnReset: HTMLButtonElement = document.getElementById("btn-reset") as HTMLButtonElement;
+    btnReset.addEventListener("click",function() {
+        game.onReset();
+    });
 });

@@ -18,12 +18,15 @@ class Game {
     private blockFlip: boolean = false;
     private timer: Timer;
     private sound: Sound;
+    private failuresCount: number = 0;
+    private failuresDisplay: HTMLSpanElement;
 
-    constructor(cards: HTMLCollectionOf<HTMLDivElement>, images: Array<string>, timer: Timer, sound: Sound) {
+    constructor(cards: HTMLCollectionOf<HTMLDivElement>, images: Array<string>, timer: Timer, sound: Sound, failuresDisplay: HTMLSpanElement) {
         this.cards = cards;
         this.images = images;
         this.timer = timer;
         this.sound = sound;
+        this.failuresDisplay = failuresDisplay;
         for (let i = 0; i < this.cards.length; i++) {
             this.cards[i].addEventListener("click", (evt) => {
                 this.onClickCard(i);
@@ -75,7 +78,9 @@ class Game {
                     self.sound.play(gameEfect.flip);
                     self.card1?.classList.remove("flip");
                     self.card2?.classList.remove("flip");
+                    self.increaseFailures();
                 }
+                self.card1 = null;
                 if (self.isEndGame()) {
                     self.timer.pause();
                     alert("Fim do jogo");
@@ -84,6 +89,17 @@ class Game {
         }, CARD_FLIP_TRANSITION_TIME);
 
     }
+
+    private resetFailures(){
+        this.failuresCount=0;
+        this.failuresDisplay.innerHTML = "0";
+    }
+    
+    private increaseFailures(){
+        this.failuresCount++;
+        this.failuresDisplay.innerHTML = ""+this.failuresCount;
+    }
+
     showCards(): void {
         for (let i = 0; i < this.cards.length; i++) {
             this.cards[i].classList.add("flip");
@@ -96,9 +112,14 @@ class Game {
         }
     }
 
+    onReset(){
+        this.shuffle();
+    }
+
     shuffle(): void {
         this.sound.play(gameEfect.flip);
         this.timer.reset();
+        this.resetFailures();
         this.showCards();
 
         setTimeout(() => {
