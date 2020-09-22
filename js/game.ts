@@ -30,6 +30,10 @@ class Game {
         this.sound = sound;
         this.failuresDisplay = failuresDisplay;
         this.btnSound = btnSound;
+        this.setEvents(btnReset);
+    }
+
+    setEvents(btnReset: HTMLButtonElement){
         let self = this;
         // Add event listener
         this.btnSound.addEventListener("click", function () {
