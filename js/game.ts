@@ -20,26 +20,25 @@ class Game {
     private sound: Sound;
     private failuresCount: number = 0;
     private failuresDisplay: HTMLSpanElement;
-    private btnSound: HTMLButtonElement;
+    private control: Control;
 
-    constructor(cards: HTMLCollectionOf<HTMLDivElement>, images: Array<string>, timer: Timer, sound: Sound, failuresDisplay: HTMLSpanElement,
-        btnSound: HTMLButtonElement, btnReset: HTMLButtonElement) {
+    constructor(cards: HTMLCollectionOf<HTMLDivElement>, images: Array<string>, timer: Timer, sound: Sound, failuresDisplay: HTMLSpanElement, control: Control) {
         this.cards = cards;
         this.images = images;
         this.timer = timer;
         this.sound = sound;
         this.failuresDisplay = failuresDisplay;
-        this.btnSound = btnSound;
-        this.setEvents(btnReset);
+        this.control = control;
+        this.setEvents();
     }
 
-    setEvents(btnReset: HTMLButtonElement){
+    private setEvents(): void {
         let self = this;
         // Add event listener
-        this.btnSound.addEventListener("click", function () {
+        this.control.getBtnSoundEfect().addEventListener("click", function () {
             self.onSoundEfect();
         });
-        btnReset.addEventListener("click", function () {
+        this.control.getBtnReset().addEventListener("click", function () {
             self.onReset();
         })
         for (let i = 0; i < this.cards.length; i++) {
@@ -105,12 +104,12 @@ class Game {
 
     }
 
-    private resetFailures() {
+    private resetFailures(): void {
         this.failuresCount = 0;
         this.failuresDisplay.innerHTML = "0";
     }
 
-    private increaseFailures() {
+    private increaseFailures(): void {
         this.failuresCount++;
         this.failuresDisplay.innerHTML = "" + this.failuresCount;
     }
@@ -127,11 +126,11 @@ class Game {
         }
     }
 
-    onReset() {
+    onReset(): void {
         this.shuffle();
     }
 
-    shuffle(): void {
+    private shuffle(): void {
         this.sound.play(gameEfect.flip);
         this.timer.reset();
         this.resetFailures();
@@ -151,7 +150,7 @@ class Game {
         }, CARD_FLIP_TRANSITION_TIME + 100);
     }
 
-    private isEndGame() {
+    private isEndGame(): boolean {
         for (let i = 0; i < this.cards.length; i++) {
             if (!this.cards[i].classList.contains("block")) {
                 return false;
@@ -160,13 +159,13 @@ class Game {
         return true;
     }
 
-    onSoundEfect() {
+    onSoundEfect(): void {
         if (this.sound.isEnabledSoundEfect()) {
             this.sound.setEnabledSoundEfect(false);
-            this.btnSound.innerHTML = '<i class="fas fa-volume-off fa-lg"></i>'
+            this.control.getBtnSoundEfect().innerHTML = '<i class="fas fa-volume-off fa-lg"></i>'
         } else {
             this.sound.setEnabledSoundEfect(true);
-            this.btnSound.innerHTML = '<i class="fas fa-volume-up fa-lg"></i>'
+            this.control.getBtnSoundEfect().innerHTML = '<i class="fas fa-volume-up fa-lg"></i>'
         }
     }
 

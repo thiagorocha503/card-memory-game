@@ -48,10 +48,10 @@ window.addEventListener("load", function(){
     let sound = new Sound(flip, success);
     // failuresCount
     let failuresDisplay: HTMLSpanElement = document.getElementById("failures") as HTMLSpanElement;
-    // button
+    // button and control
     let btnSound: HTMLButtonElement = document.getElementById("btn-sound") as HTMLButtonElement;
     let btnReset: HTMLButtonElement = document.getElementById("btn-reset") as HTMLButtonElement;
+    let control: Control = new Control(btnSound, btnReset);
     // Game
-    game = new Game(cards, img, timer, sound, failuresDisplay, btnSound, btnReset);
-    
+    game = new Game(cards, img, timer, sound, failuresDisplay, control);
 });
