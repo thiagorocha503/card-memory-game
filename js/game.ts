@@ -159,8 +159,10 @@ class Game {
     onSoundEfect() {
         if (this.sound.isEnabledSoundEfect()) {
             this.sound.setEnabledSoundEfect(false);
+            this.btnSound.innerHTML = '<i class="fas fa-volume-off fa-lg"></i>'
         } else {
             this.sound.setEnabledSoundEfect(true);
+            this.btnSound.innerHTML = '<i class="fas fa-volume-up fa-lg"></i>'
         }
     }
 
