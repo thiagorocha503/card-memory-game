@@ -28,7 +28,7 @@ window.addEventListener("load", function(){
         IMAGE_ROOT + "swift.png", IMAGE_ROOT + "swift.png",
         IMAGE_ROOT + "go.png", IMAGE_ROOT + "go.png",
         IMAGE_ROOT + "js.png", IMAGE_ROOT + "js.png",
-        IMAGE_ROOT + "c.png", IMAGE_ROOT + "c.png",
+        IMAGE_ROOT + "flutter.png", IMAGE_ROOT + "flutter.png",
         IMAGE_ROOT + "c++.png", IMAGE_ROOT + "c++.png",
     ];
     //img = shuffle(img);
