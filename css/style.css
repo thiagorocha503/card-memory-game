@@ -131,7 +131,7 @@ img{
 
 /* grid */
 #grid{
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -154,4 +154,7 @@ img{
 
 .btn-reset{
     background:  #03A9F4;
+}
+.btn-sound{
+    background-color: grey;
 }

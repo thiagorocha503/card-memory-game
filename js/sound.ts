@@ -6,7 +6,7 @@ enum gameEfect {
 
 class Sound {
 
-    private activeSoundEfects: boolean = true;
+    private enabledSoundEfects: boolean = true;
     private sucessSound: HTMLAudioElement;
     private flipCardSound: HTMLAudioElement;
 
@@ -15,12 +15,15 @@ class Sound {
         this.sucessSound = sucessSound;
     }
 
+    isEnabledSoundEfect(): boolean {
+        return this.enabledSoundEfects;
+    }
     setEnabledSoundEfect(enabled: boolean): void {
-        this.activeSoundEfects = enabled;
+        this.enabledSoundEfects = enabled;
     }
 
     play(option: gameEfect): void {
-        if (!this.activeSoundEfects) {
+        if (!this.enabledSoundEfects) {
             return;
         }
         let selectedSound: HTMLAudioElement;
