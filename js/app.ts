@@ -5,10 +5,8 @@ window.addEventListener("load", function(){
         card.className = "card";
         card.insertAdjacentHTML("afterbegin",
             `
-            <div class="front">
-                <div>
-                    Front
-                </div>
+            <div class="front">       
+                <img src="img/card-back.png">
             </div>
             <div class="back">
                 <div>
