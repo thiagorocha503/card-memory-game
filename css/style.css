@@ -4,10 +4,16 @@
     border: 0;
     box-sizing: border-box;
 }
+
 .clearfix::after {
     content: "";
     clear: both;
     display: table;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
 }
 
 body {
@@ -68,8 +74,10 @@ body {
     margin: 10px auto;
 }
 
-#display{
+#display,
+#failures{
     font-family: 'Courier New', Courier, monospace;
+    margin-right: 20px;
 }
 
 .card {
@@ -101,7 +109,7 @@ body {
 }
 
 .front {
-    border: 2px solid whitesmoke;
+    border: 2px solid grey;
     background: white;
     text-align: center;
     /* select*/
@@ -129,11 +137,6 @@ body {
 .front img{
     padding: 4px;
     border-radius: 12px;
-}
-
-img{
-    max-width: 100%;
-    height: auto;
 }
 
 /* grid */

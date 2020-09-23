@@ -79,9 +79,8 @@ class Game {
             } else {
                 self.card2 = self.cards[position];
                 self.turn = 1;
-                let img1 = self.card1?.getElementsByTagName("img")[0].src;
-                let img2 = self.card2?.getElementsByTagName("img")[0].src;
-                //console.log(">> ",img1,", ",img2)
+                let img1 = self.card1?.getElementsByClassName("img-back")[0].getAttribute("src");
+                let img2 = self.card2?.getElementsByClassName("img-back")[0].getAttribute("src");
                 if (img1 == img2) {
                     console.log("> imagens iguais")
                     self.card1?.classList.add("block");

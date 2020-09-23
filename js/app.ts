@@ -10,7 +10,7 @@ window.addEventListener("load", function(){
             </div>
             <div class="back">
                 <div>
-                    <img src=${img}>
+                    <img class="img-back" src=${img}>
                 </div>         
             </div>
         `
