@@ -1,3 +1,4 @@
+const IMAGE_ROOT = "img/";
 var game: Game;
 window.addEventListener("load", function(){
     function buildCard(img: string) {

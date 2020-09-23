@@ -1,4 +1,3 @@
-const IMAGE_ROOT = "img/";
 const CARD_FLIP_TRANSITION_TIME: number = 800;
 
 function shuffle(array: Array<any>): Array<any> {
@@ -48,23 +47,18 @@ class Game {
         }
     }
 
-    onClickCard(position: number): void {
+    public onClickCard(position: number): void {
         if (this.isEndGame()) {
             console.log("End game");
             return;
         }
         this.timer.start();
-        if (this.blockFlip) {
-            console.log("Block flip")
+        if (this.isCardBlocked(position)) {
+            console.log("> Carta já retirada");
             return;
         }
-        if (this.cards[position].classList.contains("block") ||
-            this.cards[position].classList.contains("flip")) {
-            console.log("Carta já retirada");
-            return;
-        }
-        if (this.cards[position] == this.card1) {
-            console.log("> Card já selecionado")
+        if (this.isSelectedCard(position)) {
+            console.log("> carta já selecionado")
             return;
         }
         // flip card
@@ -103,6 +97,28 @@ class Game {
 
     }
 
+    public onReset(): void {
+        this.shuffle();
+    }
+
+    public onSoundEfect(): void {
+        if (this.sound.isEnabledSoundEfect()) {
+            this.sound.setEnabledSoundEfect(false);
+            this.control.getBtnSoundEfect().innerHTML = '<i class="fas fa-volume-off fa-lg"></i>'
+        } else {
+            this.sound.setEnabledSoundEfect(true);
+            this.control.getBtnSoundEfect().innerHTML = '<i class="fas fa-volume-up fa-lg"></i>'
+        }
+    }
+
+    private isSelectedCard(position: number): boolean {
+        return this.cards[position] == this.card1;
+    }
+
+    private isCardBlocked(position: number): boolean {
+        return this.cards[position].classList.contains("block");
+    }
+
     private resetFailures(): void {
         this.failuresCount = 0;
         this.failuresDisplay.innerHTML = "0";
@@ -125,10 +141,6 @@ class Game {
         }
     }
 
-    onReset(): void {
-        this.shuffle();
-    }
-
     private shuffle(): void {
         this.sound.play(gameEfect.flip);
         this.timer.reset();
@@ -142,7 +154,7 @@ class Game {
                 this.images = shuffle(this.images);
                 for (let i = 0; i < this.cards.length; i++) {
                     this.cards[i].classList.remove("block");
-                    this.cards[i].getElementsByTagName("img")[0].src = this.images[i];
+                    this.cards[i].getElementsByClassName("img-back")[0].setAttribute("src", this.images[i]);
                 }
                 //this.showCards();/* for test*/
             }, CARD_FLIP_TRANSITION_TIME + 100);
@@ -156,16 +168,6 @@ class Game {
             }
         }
         return true;
-    }
-
-    onSoundEfect(): void {
-        if (this.sound.isEnabledSoundEfect()) {
-            this.sound.setEnabledSoundEfect(false);
-            this.control.getBtnSoundEfect().innerHTML = '<i class="fas fa-volume-off fa-lg"></i>'
-        } else {
-            this.sound.setEnabledSoundEfect(true);
-            this.control.getBtnSoundEfect().innerHTML = '<i class="fas fa-volume-up fa-lg"></i>'
-        }
     }
 
 }
