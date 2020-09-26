@@ -1,14 +1,3 @@
-const SECONDS: number = 1000;
-const MINUTES: number = 60 * SECONDS;
-const HOURS: number = 60 * MINUTES;
-
-function leftPad(value: number, lenght: number) {
-    let s = value + "";
-    while (s.length < lenght){
-        s = "0" + s
-    };
-    return s;
-}
 
 class Timer {
     private interval: number;
@@ -30,7 +19,7 @@ class Timer {
     getTime(): number {
         return this.time;
     }
-    
+
     start() {
         if (isNaN(this.interval)) {
             this.beforeTime = Date.now();
@@ -38,21 +27,17 @@ class Timer {
             this.interval = setInterval(() => {
                 let now = Date.now();
                 let difference = now - self.beforeTime;
-                let new_time = self.getTime()+difference;
+                let new_time = self.getTime() + difference;
                 self.setTime(new_time);
                 self.beforeTime = now;
                 self.clock();
-                
-            },1000 );
+
+            }, 1000);
         }
     }
 
     clock() {
-        let minutes = Math.floor((this.time % HOURS) / MINUTES);
-        let seconds = Math.floor((this.time % MINUTES) / SECONDS);
-        let str = leftPad(minutes, 2) + ":" + leftPad(seconds, 2);
-        //console.log("> " + str);
-        this.display.innerHTML = str;
+        this.display.innerHTML = timeFormat(this.time);
     }
 
     pause() {

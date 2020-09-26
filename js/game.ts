@@ -1,12 +1,5 @@
 const CARD_FLIP_TRANSITION_TIME: number = 800;
 
-function shuffle(array: Array<any>): Array<any> {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
 
 class Game {
     private cards: HTMLCollectionOf<HTMLDivElement>;
@@ -90,7 +83,12 @@ class Game {
                 self.card1 = null;
                 if (self.isEndGame()) {
                     self.timer.pause();
-                    alert("Fim do jogo");
+                    console.log("Fim do jogo");
+                    Swal.fire(
+                        "Congratulations",
+                        `You won in ${timeFormat(self.timer.getTime())} with ${self.failuresCount} failures`,
+                        "success"
+                    );
                 }
             }
         }, CARD_FLIP_TRANSITION_TIME);

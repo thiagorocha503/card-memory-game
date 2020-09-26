@@ -1,23 +1,6 @@
 const IMAGE_ROOT = "img/";
-var game: Game;
-window.addEventListener("load", function(){
-    function buildCard(img: string) {
-        let card: HTMLElement = document.createElement("div");
-        card.className = "card";
-        card.insertAdjacentHTML("afterbegin",
-            `
-            <div class="front">       
-                <img src="img/card-back.png">
-            </div>
-            <div class="back">
-                <div>
-                    <img class="img-back" src=${img}>
-                </div>         
-            </div>
-        `
-        );
-        return card;
-    }
+
+window.addEventListener("load", function () {
     // img src
     let img: Array<string> = [
         IMAGE_ROOT + "c-sharp.png", IMAGE_ROOT + "c-sharp.png",
@@ -52,5 +35,5 @@ window.addEventListener("load", function(){
     let btnReset: HTMLButtonElement = document.getElementById("btn-reset") as HTMLButtonElement;
     let control: Control = new Control(btnSound, btnReset);
     // Game
-    game = new Game(cards, img, timer, sound, failuresDisplay, control);
+    let game: Game = new Game(cards, img, timer, sound, failuresDisplay, control);
 });
