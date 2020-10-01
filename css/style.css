@@ -1,10 +1,18 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 
 
 * {
     margin: 0;
     padding: 0;
     border: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 .clearfix::after {
@@ -86,8 +94,11 @@ body {
     position: relative;
     width: 125px;
     height: 180px;
-    transform-style: preserve-3d;
-    transition: all 0.8s ease;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transition: all 0.8s ease;
+         -o-transition: all 0.8s ease;
+            transition: all 0.8s ease;
     margin-bottom: 5px;
     border-radius: 10px;
     cursor: pointer;
@@ -97,7 +108,8 @@ body {
 /*.card:hover,*/
 
 .flip {
-    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
 }
 
 .front,
@@ -105,9 +117,12 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
     border-radius: 10px;
     padding: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -117,9 +132,9 @@ body {
     text-align: center;
     /* select*/
     -webkit-user-select: none;
-    -moz-user-select: -moz-none;
-    -ms-user-select: none;
-    user-select: none;
+       -moz-user-select: -moz-none;
+        -ms-user-select: none;
+            user-select: none;
     padding: 0;
     border-radius: 5px;
 }
@@ -127,14 +142,19 @@ body {
 .back {
     border: 2px solid grey;
     background: white;
-    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
     padding: 10px 15px;
 }
 
 .back div,
 .front div {
-    align-self: center;
-    flex-grow: 1;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
 }
 
 .front img {
@@ -147,9 +167,13 @@ body {
 
 #grid {
     /*border: 1px solid red;*/
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
 }
 
 .block {
@@ -213,4 +237,3 @@ body {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
-
