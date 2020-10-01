@@ -16,12 +16,16 @@ class Game {
 
     constructor(cards: HTMLCollectionOf<HTMLDivElement>, images: Array<string>, timer: Timer, sound: Sound, failuresDisplay: HTMLSpanElement, control: Control) {
         this.cards = cards;
-        this.images = images;
+        this.images = shuffle(images);
         this.timer = timer;
         this.sound = sound;
         this.failuresDisplay = failuresDisplay;
         this.control = control;
         this.setEvents();
+        for (let i = 0; i < this.cards.length; i++) {
+            this.cards[i].classList.remove("block");
+            this.cards[i].getElementsByClassName("img-back")[0].setAttribute("src", this.images[i]);
+        }
     }
 
     private setEvents(): void {
@@ -85,9 +89,15 @@ class Game {
                     self.timer.pause();
                     console.log("Fim do jogo");
                     Swal.fire(
-                        "Congratulations",
-                        `You won in ${timeFormat(self.timer.getTime())} with ${self.failuresCount} failures`,
-                        "success"
+                        {
+                            "title": "Congratulations",
+                            "text": `You won in ${timeFormat(self.timer.getTime())} with ${self.failuresCount} failures`,
+                            "icon": "success",
+                            "allowOutsideClick": false,
+                            "willClose": function () {
+                                self.restart();
+                            }
+                        }
                     );
                 }
             }
@@ -95,7 +105,13 @@ class Game {
 
     }
 
+    public restart() {
+        this.shuffle();
+    }
+
     public onReset(): void {
+        this.sound.play(gameEfect.flip);
+        this.showCards();
         this.shuffle();
     }
 
@@ -140,11 +156,8 @@ class Game {
     }
 
     private shuffle(): void {
-        this.sound.play(gameEfect.flip);
         this.timer.reset();
         this.resetFailures();
-        this.showCards();
-
         setTimeout(() => {
             this.sound.play(gameEfect.flip);
             this.hideCards();
