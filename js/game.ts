@@ -1,3 +1,4 @@
+declare var Swal: any;
 const CARD_FLIP_TRANSITION_TIME: number = 800;
 
 
